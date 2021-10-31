@@ -1,10 +1,9 @@
 package com.example.zoo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 // to jest moj pierwszy endpoint
 // po to zeby string traktowal to jako endpoint
@@ -16,19 +15,27 @@ import java.util.List;
 @RequestMapping("/zoo")
 public class ZooRestController {
 
+    // dependency injection
+    private final ZooService zooService;
+
+    public ZooRestController(ZooService zooService) {
+        this.zooService = zooService;
+    }
+
 
     //przekazuje jeszcze jaka metoda ma obsluzyc ta zadanie
     @GetMapping("/example")
     public ResponseEntity<Zoo> getExampleZoo() {
-        Animal lion = new Animal(1, "lion", Diet.MEAT, Type.LAND, false, Health.HEALTHY);
-        List<Animal> animals = List.of(lion);
-        Zoo zoo = new Zoo(1, "Fajne Zoo", "Gdansk", true, animals);
-        return ResponseEntity.ok(zoo);
+        return ResponseEntity.ok(zooService.createZoo());
     }
 
     @GetMapping("/empty")
     public ResponseEntity<Zoo> getExampleZooNullAnimal() {
-        Zoo zoo2 = new Zoo(1, "Fajne Zoo", "Gdansk", true, null);
-        return ResponseEntity.ok(zoo2);
+        return ResponseEntity.ok(zooService.createNullZoo());
+    }
+
+    @GetMapping("/zooname")
+    public ResponseEntity<Zoo> getExampleZooName() {
+        return ResponseEntity.ok(zooService.createZoo("Nowa nazwa"));
     }
 }

@@ -1,0 +1,8 @@
+com/example/zoo/ZooApplication.class
+com/example/zoo/Type.class
+com/example/zoo/ZooRestController.class
+com/example/zoo/ZooService.class
+com/example/zoo/Diet.class
+com/example/zoo/Animal.class
+com/example/zoo/Zoo.class
+com/example/zoo/Health.class
