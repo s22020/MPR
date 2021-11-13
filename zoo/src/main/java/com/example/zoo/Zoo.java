@@ -10,17 +10,21 @@ public class Zoo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private int id;
+    private Integer id;
     @Column
     private String name;
     @Column
     private String location;
     @Column
     private boolean open;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Animal> animals;
 
-    public Zoo(int id, String name, String location, boolean open, List<Animal> animals) {
+    public Zoo() {
+
+    }
+
+    public Zoo(Integer id, String name, String location, boolean open, List<Animal> animals) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -28,11 +32,11 @@ public class Zoo {
         this.animals = animals;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

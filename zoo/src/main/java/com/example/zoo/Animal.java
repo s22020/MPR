@@ -8,7 +8,7 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private int id;
+    private Integer id;
     @Column
     private String specimen;
     @Column
@@ -20,7 +20,11 @@ public class Animal {
     @Column
     private Health health;
 
-    public Animal(int id, String specimen, Diet diet, Type type, boolean hunger, Health health) {
+    public Animal() {
+
+    }
+
+    public Animal(Integer id, String specimen, Diet diet, Type type, boolean hunger, Health health) {
         this.id = id;
         this.specimen = specimen;
         this.diet = diet;
@@ -33,7 +37,7 @@ public class Animal {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

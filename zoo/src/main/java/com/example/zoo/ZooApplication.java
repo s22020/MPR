@@ -37,6 +37,8 @@ public class ZooApplication {
 
 		// Do przeczytania: Co to @Repository, jak zaimplementowac, jak zapisywac do bazy danych, jak odczytywac z bazy danych
 
+
+		// robimy crud repository i wstrzykujemy do service'u
 	}
 
 }

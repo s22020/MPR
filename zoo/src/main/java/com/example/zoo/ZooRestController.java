@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 // to jest moj pierwszy endpoint
 // po to zeby string traktowal to jako endpoint
 // @ - oznaczamy adnotacje, czyli dodatkowe zachowanie schowane pod tego typu klasami
@@ -25,17 +27,24 @@ public class ZooRestController {
 
     //przekazuje jeszcze jaka metoda ma obsluzyc ta zadanie
     @GetMapping("/example")
-    public ResponseEntity<Zoo> getExampleZoo() {
+    public ResponseEntity<Zoo> createExampleZoo() {
         return ResponseEntity.ok(zooService.createZoo());
     }
 
     @GetMapping("/empty")
-    public ResponseEntity<Zoo> getExampleZooNullAnimal() {
+    public ResponseEntity<Zoo> createExampleZooNullAnimal() {
         return ResponseEntity.ok(zooService.createNullZoo());
     }
 
     @GetMapping("/zooname")
-    public ResponseEntity<Zoo> getExampleZooName() {
+    public ResponseEntity<Zoo> createExampleZooName() {
         return ResponseEntity.ok(zooService.createZoo("Nowa nazwa"));
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Zoo>> getAllZoos() {
+        return ResponseEntity.ok(zooService.getAll());
+    }
+
+
 }
