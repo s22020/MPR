@@ -1,9 +1,7 @@
 package com.example.zoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,7 +30,7 @@ public class ZooRestController {
     }
 
     @GetMapping("/empty")
-    public ResponseEntity<Zoo> createExampleZooNullAnimal() {
+    public ResponseEntity<Zoo> createExampleZooNullAnimal(@RequestParam String name) {
         return ResponseEntity.ok(zooService.createNullZoo());
     }
 
@@ -44,6 +42,11 @@ public class ZooRestController {
     @GetMapping("/all")
     public ResponseEntity<List<Zoo>> getAllZoos() {
         return ResponseEntity.ok(zooService.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Zoo> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(zooService.findById(id));
     }
 
 

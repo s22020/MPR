@@ -39,6 +39,11 @@ public class ZooApplication {
 
 
 		// robimy crud repository i wstrzykujemy do service'u
+
+		// dokonczyc wszystkie testy i poczytac o Mockito
+		//pytania na projekt:
+		//co to jest spring, spring boot, git, po co git i merge requesty, po co commity, co to jest wstrzykiwanie zależności,
+		//co to są testy jednostkowe, integracyjne, co to jest serwis, kontroler
 	}
 
 }
