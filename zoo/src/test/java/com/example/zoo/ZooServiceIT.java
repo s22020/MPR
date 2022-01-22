@@ -1,12 +1,12 @@
 package com.example.zoo;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,20 +14,21 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
-class ZooServiceTest {
-    @Mock
-    private ZooRepository zooRepository;
 
-    // inicjalizacja testowanego service'u
-    // null tylko na potrzeby testow metod nie uzywajacych bazy danych
-    // @InjectMocks - zeby zooRepository nie bylo nullem
-    @InjectMocks
+
+@SpringBootTest
+public class ZooServiceIT {
+
+    @Autowired
     private ZooService zooService;
-    // testy zapisuje sie w konwencji given-when-then
+
+    @MockBean
+    private ZooRepository zooRepository;
 
 
     @Test
@@ -36,31 +37,19 @@ class ZooServiceTest {
         Zoo zoo = new Zoo(null, "Gdanskie zoo", "Gdansk", true, List.of());
         // WHEN
         zooService.addSuffixToName(zoo);
-        // THEN, uzycie asercji (metody sprawdzajace dane (warunek do danych, takie ify))
-        // w asercji podajemy obiekt, ktory chcemy sprawdzic
+        // THEN
         assertThat(zoo.getName()).isEqualTo("Gdanskie zoo_SUFFIX");
     }
 
     @Test
     void shouldNotAddSuffixToName() {
-        // GIVEN
-        Zoo zoo = new Zoo(null, null, "Gdansk", true, List.of());
-        // WHEN
+        //GIVEN
+        Zoo zoo = new Zoo(null, null, "gdansk", true, List.of());
+        //WHEN
         zooService.addSuffixToName(zoo);
-        // THEN
+        //THEN
         assertThat(zoo.getName()).isNull();
     }
-
-//    @Test
-//    void shouldAddAnimalToZoo() {
-//        // GIVEN
-//        Zoo zoo = new Zoo(null, "Gdanskie zoo", "Gdansk", true, List.of());
-//        Animal animal = new Animal(null, "lion", Diet.MEAT, Type.LAND, false, Health.HEALTHY);
-//        // WHEN
-//        zooService.addAnimalToZoo(zoo, animal);
-//        // THEN
-//        assertThat(zoo.getAnimals()).isNotNull().hasSize(1);
-//    }
 
     @Test
     void shouldNotHaveAnimalInZoo() {

@@ -36,12 +36,12 @@ public class ZooService {
     }
 
     public List<Zoo> getAll() {
-        update();
+//        update();
 //        List<Zoo> allByOpenIsFalse = zooRepository.findAllByOpenIsFalse();
-        List<Zoo> allById = zooRepository.findAllByIdGreaterThan(5);
+//        List<Zoo> allById = zooRepository.findAllByIdGreaterThan(5);
 //        return allByOpenIsFalse;
 //        return zooRepository.findAll();
-        return allById;
+        return zooRepository.findAll();
     }
 
 
@@ -80,27 +80,12 @@ public class ZooService {
         }
     }
 
-    public void changeAnimalSpecimen(Animal animal, String specimen) {
-        if (animal.getSpecimen() != null) {
-            animal.setSpecimen(specimen);
+    public void changeZooLocation(Zoo zoo, String location) {
+        if (zoo.getLocation() != null) {
+            zoo.setLocation(location);
         }
     }
 
-    public void checkPETA(Zoo zoo) {
-        int counter = 0;
-        if (zoo.getAnimals() != null) {
-            List<Animal> animalsList = zoo.getAnimals();
-            for (Animal animl : animalsList) {
-                if (animl.isHunger() || animl.getHealth().equals(Health.DEAD) || animl.getHealth().equals(Health.WOUNDED)) {
-                    counter++;
-                }
-            }
-            if (counter > 3) {
-                System.out.println("The zoo was closed due to lack of animal care");
-                zoo.setOpen(false);
-            }
-        }
-    }
 
     public void checkLocation(Zoo zoo) {
         if (zoo.getLocation() != null) {
@@ -127,8 +112,20 @@ public class ZooService {
         return zooRepository.existsById(id);
     }
 
+    public boolean isAnimalListEmpty(Zoo zoo) {
+        if (zoo.getAnimals().size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void deleteById(Integer id) {
         zooRepository.deleteById(id);
+    }
+
+    public boolean zooExistById(Integer id) {
+        return zooRepository.existsById(id);
     }
 
 }
